@@ -1,14 +1,15 @@
 import React from "react";
+import './Widgets.scss';
 
 function Widgets(props) {
   const { icon, textHeading, value } = props;
   return (
-    <div>
-      <span>
-        <span>{icon}</span>
-        <span>{textHeading}</span>
+    <div className="widget-common-structure">
+      <span>{icon}</span>
+      <span className="heading-value-wrapper">
+        <span className="text-heading">{textHeading}</span>
+        <span className="value-text">{value}</span>
       </span>
-      <span>{value}</span>
     </div>
   );
 }

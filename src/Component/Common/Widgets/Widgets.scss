@@ -1,0 +1,30 @@
+@import "../../Common/Utils/ScssConstants.scss";
+
+.widget-common-structure {
+  border-radius: 8px;
+  background: $widgets-background-color;
+  width: 25%;
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+
+  .widget-icon-wrap {
+     
+  }
+
+  .heading-value-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .text-heading {
+      font-size: 14px;
+      font-weight: 400;
+      color: $text-color;
+    }
+    .value-text {
+      font-size: 30px;
+      font-weight: 600;
+    }
+  }
+}

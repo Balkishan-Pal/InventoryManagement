@@ -1,0 +1,61 @@
+@import "../../Common/Utils/ScssConstants.scss";
+
+table {
+  background-color: $table-background-color;
+  border: 1px solid $table-border;
+  border-bottom: none;
+
+  border-radius: 8px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0px;
+  thead {
+    border: 1px solid $table-border;
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid $table-border;
+
+      div {
+        padding: 16px;
+        width: fit-content;
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        color: $table-head-color;
+        background-color: $inventory-background-color;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      padding: 16px;
+
+      td {
+        padding: 20px;
+        font-size: 16px;
+        margin: 0px;
+        border-bottom: 1px solid $table-border;
+      }
+    }
+  }
+}
+
+.action-itens-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}

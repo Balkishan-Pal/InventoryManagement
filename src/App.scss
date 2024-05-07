@@ -1,0 +1,13 @@
+@import "./Component/Common/Utils/ScssConstants.scss";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: Inter;
+}
+
+.app-wrap {
+  height: 100vh;
+  width: 100vw;
+  background: $inventory-background-color;
+}

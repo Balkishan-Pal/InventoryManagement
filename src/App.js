@@ -1,9 +1,11 @@
-import './App.css';
-import Inventory from './Component/Inventory/Inventory';
+import "./App.scss";
+import Inventory from "./Component/Inventory/Inventory";
 
 function App() {
   return (
-  <Inventory/>
+    <div className="app-wrap">
+      <Inventory />
+    </div>
   );
 }
 
