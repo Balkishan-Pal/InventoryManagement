@@ -1,0 +1,18 @@
+
+
+// colors
+$inventory-background-color: #161718;
+$widgets-background-color:#243325;
+$table-background-color:#212124;
+$table-head-color:#E5FC72;
+$modal-background-color:#282B27;
+$text-color: #ffffff;
+$border-color:#212124;
+
+
+// mixins 
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
