@@ -8,14 +8,20 @@ export const calculateInventoryValues = (props) => {
 
     const updatedApiData = apiData.map((item) => ({
       ...item,
-      isDisabled: false,
+      isDisabled: item?.isDisabled || false,
+      value: item?.value?.includes("$")
+        ? item?.value?.split("$")?.[1]
+        : item?.value,
+      price: item?.price?.includes("$")
+        ? item?.price?.split("$")?.[1]
+        : item?.price,
     }));
 
     updatedApiData.forEach((item) => {
       totalValue += parseFloat(item?.value.replace("$", ""));
       uniqueCategories[item.category] = true;
 
-      if (item.quantity === 0) {
+      if (item.quantity == 0) {
         outOfStockItems++;
       }
     });

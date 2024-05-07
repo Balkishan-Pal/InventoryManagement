@@ -13,16 +13,15 @@ import { calculateInventoryValues } from "../Common/Utils/Utils";
 import InventoryTable from "./InventoryTable/InventoryTable";
 
 function Inventory() {
-  const [inventoryData, setInventoryData] = useState([]);
+  const [inventoryData, setInventoryData] = useState({});
   const [isUser, setIsUser] = useState(false);
-
-  console.log(inventoryData, "inventoryData");
 
   useEffect(() => {
     async function fetchData() {
       try {
         let getData;
         const storedData = localStorage.getItem("inventoryData");
+
         if (storedData) {
           getData = JSON.parse(storedData);
         } else {
@@ -70,7 +69,11 @@ function Inventory() {
         />
       </div>
       <div className="inventory-table-wrapper">
-        <InventoryTable isUser={isUser} inventoryData={inventoryData} setInventoryData={setInventoryData} />
+        <InventoryTable
+          isUser={isUser}
+          inventoryData={inventoryData}
+          setInventoryData={setInventoryData}
+        />
       </div>
     </div>
   );

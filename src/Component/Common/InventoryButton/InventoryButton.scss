@@ -1,0 +1,26 @@
+@import '../../Common/Utils/ScssConstants.scss';
+
+
+.primary-button{
+    border-radius: 6px;
+    background-color:$button-color;
+    padding: 0px 10px ;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 500;
+    border: none;
+    color: $text-color;
+    height: 32px;
+
+    &:disabled{
+        cursor: not-allowed;
+    }
+
+}
+
+.secondary-button{
+    color: $table-head-color;
+    background-color:none;
+    background: none !important;
+    @extend .primary-button
+}

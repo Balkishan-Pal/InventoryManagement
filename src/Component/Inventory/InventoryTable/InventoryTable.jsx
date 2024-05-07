@@ -7,35 +7,48 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 import "./InventoryTable.scss";
 import InventoryModal from "../../Common/InventoryModal/InventoryModal";
+import InventoryEditForm from "../InventoryEditForm/InventoryEditForm";
+import { calculateInventoryValues } from "../../Common/Utils/Utils";
 
 function InventoryTable(props) {
   const { isUser, inventoryData, setInventoryData } = props;
-  console.log(inventoryData, "inventoryData");
   const [openEditModal, setEditModal] = useState({ open: false, data: {} });
 
-  const handleEdit = (invData) => {
-    setEditModal({ open: true, data: invData });
+  const handleEdit = (invData, index) => {
+    setEditModal({ open: true, data: { ...invData, index } });
   };
 
   const handleCloseModal = () => {
     setEditModal({ open: false, data: {} });
   };
-  const handleDisable = (disableData) => {
+
+  const handleDisable = (index) => {
     let updateInventoryData = { ...inventoryData };
     let apiData = updateInventoryData?.apiData;
 
-    const dataToBeDisabledIndex = updateInventoryData.apiData.findIndex(
-      (findData) => findData?.name === disableData.name
-    );
-
-    apiData[dataToBeDisabledIndex] = {
-      ...apiData?.[dataToBeDisabledIndex],
-      isDisabled: !apiData?.[dataToBeDisabledIndex]?.isDisabled,
+    apiData[index] = {
+      ...apiData?.[index],
+      isDisabled: !apiData?.[index]?.isDisabled,
     };
-
-    console.log(updateInventoryData, "updateInventoryData");
-    localStorage.setItem("inventoryData", JSON.stringify(updateInventoryData));
+    localStorage.setItem(
+      "inventoryData",
+      JSON.stringify(updateInventoryData?.apiData)
+    );
     setInventoryData(updateInventoryData);
+  };
+
+  const handledelete = (index) => {
+    let updateInventoryData = { ...inventoryData };
+    let apiData = updateInventoryData?.apiData;
+
+    let filteredData = apiData?.filter((_, _index) => index !== _index);
+    updateInventoryData.apiData = filteredData;
+    localStorage.setItem(
+      "inventoryData",
+      JSON.stringify(updateInventoryData?.apiData)
+    );
+    const customizedData = calculateInventoryValues({ apiData: filteredData });
+    setInventoryData(customizedData);
   };
 
   return (
@@ -46,7 +59,11 @@ function InventoryTable(props) {
           open={openEditModal?.open || false}
           onClose={handleCloseModal}
         >
-          <div style={{ border: "10px solid white" }}>component</div>
+          <InventoryEditForm
+            openEditModal={openEditModal}
+            setEditModal={setEditModal}
+            {...props}
+          />
         </InventoryModal>
       )}
 
@@ -76,21 +93,21 @@ function InventoryTable(props) {
             <tr key={index}>
               <td>{invData?.name}</td>
               <td>{invData?.category}</td>
-              <td>{invData?.price}</td>
+              <td>${invData?.price}</td>
               <td>{invData?.quantity}</td>
-              <td>{invData?.value}</td>
+              <td>${invData?.value}</td>
               <td>
                 <div className="action-itens-wrapper">
                   <button
                     typeof="button"
-                    disabled={!isUser}
-                    onClick={() => handleEdit(invData)}
+                    disabled={isUser}
+                    onClick={() => handleEdit(invData, index)}
                   >
                     <EditIcon />
                   </button>
                   <button
-                    disabled={!isUser}
-                    onClick={() => handleDisable(invData)}
+                    disabled={isUser}
+                    onClick={() => handleDisable(index)}
                     typeof="button"
                   >
                     {invData?.isDisabled ? (
@@ -99,7 +116,11 @@ function InventoryTable(props) {
                       <VisibilityIcon />
                     )}
                   </button>
-                  <button disabled={!isUser} typeof="button">
+                  <button
+                    disabled={isUser}
+                    onClick={() => handledelete(index)}
+                    typeof="button"
+                  >
                     <DeleteIcon />
                   </button>
                 </div>
